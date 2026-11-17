@@ -10,6 +10,8 @@ import android.widget.Toast
 
 class MainActivity : Activity() {
 
+    private val aiPrefix = Regex("^\\s*(?:ai\\b|a\\.i\\.)[\\s,:.]*", RegexOption.IGNORE_CASE)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -24,6 +26,12 @@ class MainActivity : Activity() {
         }
     }
 
+    private fun upravDotaz(text: String): String {
+        val m = aiPrefix.find(text) ?: return text.trim()
+        val zbytek = text.substring(m.range.last + 1).trim()
+        return if (zbytek.isEmpty()) text.trim() else "?" + zbytek
+    }
+
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -31,9 +39,10 @@ class MainActivity : Activity() {
             data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.firstOrNull()
         else null
         if (!text.isNullOrBlank()) {
+            val dotaz = upravDotaz(text)
             try {
                 startActivity(
-                    Intent(Intent.ACTION_VIEW, Uri.parse("streamlet://search?q=" + Uri.encode(text)))
+                    Intent(Intent.ACTION_VIEW, Uri.parse("streamlet://search?q=" + Uri.encode(dotaz)))
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             } catch (e: ActivityNotFoundException) {
