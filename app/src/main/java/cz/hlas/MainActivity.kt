@@ -32,13 +32,15 @@ class MainActivity : Activity() {
         else null
         if (!text.isNullOrBlank()) {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW,
-                    Uri.parse("streamlet://search?q=" + Uri.encode(text))))
+                startActivity(
+                    Intent(Intent.ACTION_VIEW, Uri.parse("streamlet://search?q=" + Uri.encode(text)))
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
             } catch (e: ActivityNotFoundException) {
                 toast("Streamlet není nainstalovaný")
             }
         }
-        finish()
+        finishAndRemoveTask()
     }
 
     private fun toast(s: String) = Toast.makeText(this, s, Toast.LENGTH_LONG).show()
