@@ -5,7 +5,7 @@
     <uses-feature android:name="android.software.leanback" android:required="false" />
 
     <application
-        android:label="Hlasové hledání"
+        android:label="Streamlet Voice"
         android:icon="@drawable/banner"
         android:banner="@drawable/banner">
 
