@@ -10,7 +10,7 @@ import android.widget.Toast
 
 class MainActivity : Activity() {
 
-    private val aiPrefix = Regex("^\\s*(?:dotaz\\b|ai\\b|a\\.i\\.)[\\s,:.]*", RegexOption.IGNORE_CASE)
+    private val aiPrefix = Regex("^\\s*(?:dotaz|ai|a\\.i\\.)\\b[\\s,:.]*", RegexOption.IGNORE_CASE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
