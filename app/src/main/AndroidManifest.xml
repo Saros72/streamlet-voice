@@ -6,7 +6,7 @@
 
     <application
         android:label="Streamlet Voice"
-        android:icon="@drawable/banner"
+        android:icon="@mipmap/ic_launcher"
         android:banner="@drawable/banner">
 
         <activity
